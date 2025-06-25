@@ -2,29 +2,29 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/package.json",
+      "src": "package.json",  // Your frontend package.json
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "build"
+        "distDir": "dist"  // Points to your build output folder
       }
     },
     {
-      "src": "server/index.js",
+      "src": "server/index.js",  // Your backend entry point
       "use": "@vercel/node"
     }
   ],
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "server/index.js"
+      "destination": "server/index.js"  // All /api/* routes to backend
     },
     {
       "source": "/static/(.*)",
-      "destination": "src/build/static/$1"
+      "destination": "/dist/static/$1"  // Static assets from build
     },
     {
       "source": "/(.*)",
-      "destination": "src/build/index.html"
+      "destination": "/dist/index.html"  // All other routes to frontend
     }
   ],
   "headers": [
